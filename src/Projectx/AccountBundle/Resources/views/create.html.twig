@@ -1,0 +1,11 @@
+{%extends "ProjectxAccountBundle::layout.html.twig" %}
+
+{%block body%}
+	<h2>Ajout un compte</h2>
+
+	{%include "ProjectxAccountBundle::form_create_update.html.twig"%}
+	
+	<p>
+		<a href="{{path('Home')}}" class="btn"><i class="icon-chevron-left"></i> Retour à la liste</a>
+	</p>
+{%endblock%}

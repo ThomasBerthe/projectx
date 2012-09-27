@@ -1,3 +1,7 @@
+ProjectxAccountBundle:
+    resource: "@ProjectxAccountBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ProjectxUserBundle:
     resource: "@ProjectxUserBundle/Resources/config/routing.yml"
     prefix:   /

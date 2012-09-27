@@ -1,0 +1,144 @@
+<?php
+
+namespace Projectx\AccountBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Projectx\AccountBundle\Entity\Account
+ *
+ * @ORM\Table(name="account")
+ * @ORM\Entity(repositoryClass="Projectx\AccountBundle\Entity\AccountRepository")
+ */
+class Account
+{
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+	
+	/**
+	 * @ORM\Column(type="string", length="255")
+     * @var string $name
+     */
+    private $name;
+
+    /**
+	 * @ORM\Column(type="string", length="255")
+     * @var string $url
+     */
+    private $url;
+
+    /**
+	 * @ORM\Column(type="string", length="255")
+     * @var string $login
+     */
+    private $login;
+
+    /**
+	 * @ORM\Column(type="string", length="255")
+     * @var string $password
+     */
+    private $password;
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="Projectx\AccountBundle\Entity\AccountGroup")
+	 * @ORM\JoinColumn(nullable=false)
+	 */
+	private $group;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set login
+     *
+     * @param string $login
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+    }
+
+    /**
+     * Get login
+     *
+     * @return string 
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+	
+}
