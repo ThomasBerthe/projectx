@@ -1,23 +1,23 @@
 Home:
     pattern:  /home
     defaults: { _controller: ProjectxAccountBundle:default:index }
-        
-ViewAccount:
-    pattern: /account/{id}
-    defaults: { _controller: ProjectxAccountBundle:default:viewAccount }
+
+SyncAccount:
+    pattern: /syncaccount/{id}
+    defaults: { _controller: ProjectxAccountBundle:default:syncAccount }
     requirements:
-        id: \d+
+        id: \d*
 
 AddAccount:
     pattern: /addaccount
     defaults: { _controller: ProjectxAccountBundle:default:addAccount }
-    
+
 DeleteAccount:
     pattern: /deleteaccount/{id}
     defaults: { _controller: ProjectxAccountBundle:default:deleteAccount }
     requirements:
         id: \d+
-    
+
 UpdateAccount:
     pattern: /updateaccount/{id}
     defaults: { _controller: ProjectxAccountBundle:default:updateAccount }

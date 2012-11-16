@@ -2,10 +2,15 @@
 
 {%block title%}{{parent()}} - Home{%endblock%}
 
+{%block javascripts%}
+	{{parent()}}
+	<script type="text/javascript" src="{{asset('js/projectx/account/account.js')}}"></script>
+{%endblock%}
+
 {%block body%}
 	<h2>Account list</h2>
 	<a class="btn btn-primary" href="{{path('AddAccount')}}">Create</a>
-	
+
 	<table class="table table-striped table-hover">
 		<thead>
 			<tr>
@@ -17,24 +22,84 @@
 				<th>Groupe</th>
 			</tr>
 		</thead>
-		<tbody>
-			{%for account in accounts%}
-				<tr>
-					<td>
-						<a title="edit" href="{{path('UpdateAccount', {'id':account.id})}}"><i class="icon-edit"></i></a>
-						<a title="delete" href="{{path('DeleteAccount', {'id':account.id})}}"><i class="icon-trash"></i></a>
-					</td>
-					<td>{{account.name}}</td>
-					<td><a href="{{account.url}}" target="_blank">{{account.url}}</a></td>
-					<td>{{account.login}}</td>
-					<td>{{account.password}}</td>
-					<td>{{account.group.name}}</td>
-				</tr>
-			{%else%}
-				<tr>
-					<td colspan=6 class="center">No Accounts !</td>
-				</tr>
-			{%endfor%}
+		<tbody id="j-accountsBody">
+			<tr>
+				<td colspan=6 class="center">No Accounts !</td>
+			</tr>
 		</tbody>
 	</table>
+
+	{# Template Underscore de la liste de comptes #}
+	<script type="text/template" id="j-accountsBodyTpl">
+		<% _.each(accounts, function(account) { %>
+			<tr id="j-rowAccount<%= account.id %>" class="j-rowAccount">
+				<input type="hidden" class="j-id" value="<%= account.id %>" />
+				<td>
+					<a href="#editaccount/<%= account.id %>" class="j-edit" id="j-edit<%= account.id %>" title="edit"><i class="icon-edit"></i></a>
+					<a class="j-delete" id="j-delete<%= account.id %>" title="delete"><i class="icon-trash"></i></a>
+				</td>
+				<td>
+					<span><%= account.name %></span>
+					<input class="hide" type="text" name="name" value="<%= account.name %>" placeholder="Nom" />
+				</td>
+				<td>
+					<span><a href="<%= account.url %>" target="_blank"><%= account.url %></a></span>
+					<input class="hide" type="text" name="url" value="<%= account.url %>" placeholder="Url" />
+				</td>
+				<td>
+					<span><%= account.login %></span>
+					<input class="hide" type="text" name="login" value="<%= account.login %>" placeholder="Login" />
+				</td>
+				<td>
+					<span><%= account.password %></span>
+					<input class="hide" type="text" name="password" value="<%= account.password %>" placeholder="Password" />
+				</td>
+				<td>
+					<span><%= account.group.name %></span>
+					<a class="hide btn btn-primary j-save" id="j-save<%= account.id %>">Save</a>
+				</td>
+			</tr>
+		<% }); %>
+	</script>
+
+	{#
+	{%macro row(id, name, login, password, url, groupName)%}
+		<tr id="j-rowAccount{{id}}">
+			<input type="hidden" class="j-id" value="{{id}}">
+			<td>
+				<a class="j-edit" title="edit"><i class="icon-edit"></i></a>
+				<a class="j-delete" title="delete"><i class="icon-trash"></i></a>
+			</td>
+			<td>{{name}}</td>
+			<td><a href="{{url}}" target="_blank">{{url}}</a></td>
+			<td>{{login}}</td>
+			<td>{{password}}</td>
+			<td>{{groupName}}</td>
+		</tr>
+	{%endmacro%}
+	{%import _self as accountMacro%}
+
+	{%for account in accounts%}
+
+	{%else%}
+		<tr>
+			<td colspan=6 class="center">No Accounts !</td>
+		</tr>
+	{%endfor%}
+
+	Template avec le path
+	{{accountMacro.row("<%= id %>", "<%= name %>", "<%= login %>", "<%= password %>", "<%= url %>", "<%= group.name %>")}}
+	{{accountMacro.row(account.id, account.name, account.login, account.password, account.url, account.group.name)}}
+	<tr>
+		<td>
+			<a title="edit" href="{{path('UpdateAccount', {'id':account.id})}}"><i class="icon-edit"></i></a>
+			<a title="delete" href="{{path('DeleteAccount', {'id':account.id})}}"><i class="icon-trash"></i></a>
+		</td>
+		<td>{{account.name}}</td>
+		<td><a href="{{account.url}}" target="_blank">{{account.url}}</a></td>
+		<td>{{account.login}}</td>
+		<td>{{account.password}}</td>
+		<td>{{account.group.name}}</td>
+	</tr>
+	#}
 {%endblock%}

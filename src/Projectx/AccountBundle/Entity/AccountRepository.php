@@ -11,36 +11,42 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class AccountRepository extends EntityRepository {
-	
+
 	/**
      * Récupère le compte avec son groupe
 	 * @param type $id
+	 * @param $bInArray
 	 * @return Account
 	 */
-	public function findWithGroup($id) {
+	public function findWithGroup($id, $bInArray=false) {
 		try {
 			$qb = $this->createQueryBuilder('a');
 			$qb->select('a, ag')
 				->leftJoin('a.group', 'ag')
 				->where('a.id = ' . $id);
-			return $qb->getQuery()
-					->getOneOrNullResult();
+			if ($bInArray)
+				return $qb->getQuery()->getArrayResult();
+			else
+				return $qb->getQuery()->getOneOrNullResult();
 		} catch(\Doctrine\ORM\ORMException $e) {
 			return null;
 		}
 	}
-	
+
 	/**
      * Récupère tous les comptes avec leur groupe
+	 * @param $bInArray
 	 * @return Account[]
 	 */
-	public function findAllWithGroup() {
+	public function findAllWithGroup($bInArray=false) {
 		$qb = $this->createQueryBuilder('a');
 		$qb->select('a, ag')
 			->leftJoin('a.group', 'ag');
-				
-		return $qb->getQuery()
-				->getResult();
+
+		if ($bInArray)
+			return $qb->getQuery()->getArrayResult();
+		else
+			return $qb->getQuery()->getResult();
 	}
-	
+
 }

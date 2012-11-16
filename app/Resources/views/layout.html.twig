@@ -7,10 +7,16 @@
 			<link rel="stylesheet" href="{{asset('css/bootstrap.css')}}" type="text/css">
 		{% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-		
+
 		{% block javascripts %}
-			<script src="http://code.jquery.com/jquery-latest.js"></script>
-			<script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
+			{# Gestion du dom #}
+			<script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
+			{# Fonctions utiles #}
+			<script type="text/javascript" src="{{asset('js/underscore.min.js')}}"></script>
+			{# Gestion MVC #}
+			<script type="text/javascript" src="{{asset('js/backbone.min.js')}}"></script>
+			{# Modal et autres #}
+			<script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
 		{% endblock %}
     </head>
     <body>
@@ -20,16 +26,16 @@
 				<h1>Link4Lead Account Management</h1>
 				<p>Gestion des mots de passes de Link4Lead</p>
 			</div>
-				
+
 			{# Body #}
 			<div class="row">
 				<div id="content" class="span12">
 					 {% block body %}{% endblock %}
 				</div>
 			</div>
-				
+
 			{# Footer #}
-			<hr>	
+			<hr>
 			<footer>
 				Tom Corporation&copy;
 			</footer>

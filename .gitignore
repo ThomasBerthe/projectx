@@ -1,3 +1,6 @@
+# NetBeans
+*.DS_Store
+
 # Bootstrap
 app/bootstrap*
 

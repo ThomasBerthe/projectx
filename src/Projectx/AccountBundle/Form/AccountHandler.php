@@ -14,7 +14,7 @@ class AccountHandler {
 	protected $form;
 	protected $request;
 	protected $em;
-	
+
 	/**
 	 * Constructeur
 	 * @param Form $oForm
@@ -26,13 +26,13 @@ class AccountHandler {
 		$this->request = $oRequest;
 		$this->em = $em;
 	}
-	
+
 	/**
 	 * Traitement du formulaire
 	 * @return boolean
 	 */
 	public function process() {
-		if ($this->request->getMethod() == 'POST') {
+		if ($this->request->getMethod() == 'POST' || $this->request->getMethod() == 'PUT') {
 			$this->form->bindRequest($this->request);
 			if ($this->form->isValid()) {
 				$this->onSuccess($this->form->getData());
@@ -40,7 +40,7 @@ class AccountHandler {
 			}
 		}
 	}
-	
+
 	/**
 	 * En cas de succès
 	 */
