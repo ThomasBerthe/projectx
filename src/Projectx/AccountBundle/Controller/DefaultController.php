@@ -15,7 +15,12 @@ class DefaultController extends Controller {
 	 */
 	public function indexAction() {
 		$em = $this->getDoctrine()->getEntityManager();
-		$aAccounts = $em->getRepository('ProjectxAccountBundle:Account')->findAllWithGroup();
+		$oPaginator = $this->get('knp_paginator');
+		$aAccounts = $oPaginator->paginate(
+			$em->getRepository('ProjectxAccountBundle:Account')->findAllWithGroup(),
+			$this->get('request')->query->get('page', 1),
+			2
+		);
 		return $this->render('ProjectxAccountBundle::index.html.twig', array('accounts' => $aAccounts));
 	}
 

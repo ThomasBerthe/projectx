@@ -145,7 +145,7 @@
 		Backbone.emulateHTTP = true;
 
 		// Router Init
-		var oRouter = new AccountRouter();
+		//var oRouter = new AccountRouter();
 
 		// Monitoring activation and url dispatch
 		//Backbone.history.start()

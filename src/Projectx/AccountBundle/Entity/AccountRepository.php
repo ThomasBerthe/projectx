@@ -46,7 +46,7 @@ class AccountRepository extends EntityRepository {
 		if ($bInArray)
 			return $qb->getQuery()->getArrayResult();
 		else
-			return $qb->getQuery()->getResult();
+			return $qb;
 	}
 
 }

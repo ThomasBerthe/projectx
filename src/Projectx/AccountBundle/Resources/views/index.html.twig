@@ -7,6 +7,37 @@
 	<script type="text/javascript" src="{{asset('js/projectx/account/account.js')}}"></script>
 {%endblock%}
 
+{%macro row(id, name, login, password, url, groupName)%}
+	<tr id="j-rowAccount{{id|raw}}" class="j-rowAccount">
+		<input type="hidden" class="j-id" value="{{id|raw}}" />
+		<td>
+			<a class="j-edit" id="j-edit{{id|raw}}" title="edit"><i class="icon-edit"></i></a>
+			<a class="j-delete" id="j-delete{{id|raw}}" title="delete"><i class="icon-trash"></i></a>
+		</td>
+		<td>
+			<span>{{name|raw}}</span>
+			<input class="hide" type="text" name="name" value="{{name|raw}}" placeholder="Nom" />
+		</td>
+		<td>
+			<span><a href="{{url|raw}}" target="_blank">{{url|raw}}</a></span>
+			<input class="hide" type="text" name="url" value="{{url|raw}}" placeholder="Url" />
+		</td>
+		<td>
+			<span>{{login|raw}}</span>
+			<input class="hide" type="text" name="login" value="{{login|raw}}" placeholder="Login" />
+		</td>
+		<td>
+			<span>{{password|raw}}</span>
+			<input class="hide" type="text" name="password" value="{{password|raw}}" placeholder="Password" />
+		</td>
+		<td>
+			<span>{{groupName|raw}}</span>
+			<a class="hide btn btn-primary j-save" id="j-save{{id|raw}}">Save</a>
+		</td>
+	</tr>
+{%endmacro%}
+{%import _self as accountMacro%}
+
 {%block body%}
 	<h2>Account list</h2>
 	<a class="btn btn-primary" href="{{path('AddAccount')}}">Create</a>
@@ -15,7 +46,7 @@
 		<thead>
 			<tr>
 				<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-				<th>Nom</th>
+				<th{%if accounts.isSorted('a.name')%} class="sorted" {%endif%}>{{accounts.sortable('Nom', 'a.name')|raw}}</th>
 				<th>Url</th>
 				<th>Login</th>
 				<th>Password</th>
@@ -23,42 +54,23 @@
 			</tr>
 		</thead>
 		<tbody id="j-accountsBody">
-			<tr>
-				<td colspan=6 class="center">No Accounts !</td>
-			</tr>
+			{%for account in accounts%}
+				{{accountMacro.row(account.id, account.name, account.login, account.password, account.url, account.group.name)}}
+			{%else%}
+				<tr>
+					<td colspan=6 class="center">No Accounts !</td>
+				</tr>
+			{%endfor%}
 		</tbody>
+		<tfooter>
+			{{accounts.render()|raw}}
+		</tfooter>
 	</table>
 
 	{# Template Underscore de la liste de comptes #}
 	<script type="text/template" id="j-accountsBodyTpl">
 		<% _.each(accounts, function(account) { %>
-			<tr id="j-rowAccount<%= account.id %>" class="j-rowAccount">
-				<input type="hidden" class="j-id" value="<%= account.id %>" />
-				<td>
-					<a href="#editaccount/<%= account.id %>" class="j-edit" id="j-edit<%= account.id %>" title="edit"><i class="icon-edit"></i></a>
-					<a class="j-delete" id="j-delete<%= account.id %>" title="delete"><i class="icon-trash"></i></a>
-				</td>
-				<td>
-					<span><%= account.name %></span>
-					<input class="hide" type="text" name="name" value="<%= account.name %>" placeholder="Nom" />
-				</td>
-				<td>
-					<span><a href="<%= account.url %>" target="_blank"><%= account.url %></a></span>
-					<input class="hide" type="text" name="url" value="<%= account.url %>" placeholder="Url" />
-				</td>
-				<td>
-					<span><%= account.login %></span>
-					<input class="hide" type="text" name="login" value="<%= account.login %>" placeholder="Login" />
-				</td>
-				<td>
-					<span><%= account.password %></span>
-					<input class="hide" type="text" name="password" value="<%= account.password %>" placeholder="Password" />
-				</td>
-				<td>
-					<span><%= account.group.name %></span>
-					<a class="hide btn btn-primary j-save" id="j-save<%= account.id %>">Save</a>
-				</td>
-			</tr>
+			{{accountMacro.row("<%= account.id %>", "<%= account.name %>", "<%= account.login %>", "<%= account.password %>", "<%= account.url %>", "<%= account.group.name %>")}}
 		<% }); %>
 	</script>
 
