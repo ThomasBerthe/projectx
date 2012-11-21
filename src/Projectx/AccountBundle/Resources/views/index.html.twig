@@ -39,6 +39,8 @@
 {%import _self as accountMacro%}
 
 {%block body%}
+	{{ knp_menu_render('ProjectxAccountBundle:Builder:mainMenu') }}
+
 	<h2>Account list</h2>
 	<a class="btn btn-primary" href="{{path('AddAccount')}}">Create</a>
 
@@ -46,11 +48,11 @@
 		<thead>
 			<tr>
 				<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-				<th{%if accounts.isSorted('a.name')%} class="sorted" {%endif%}>{{accounts.sortable('Nom', 'a.name')|raw}}</th>
-				<th>Url</th>
-				<th>Login</th>
-				<th>Password</th>
-				<th>Groupe</th>
+				<th{%if accounts.isSorted('a.name')%} class="sorted" {%endif%}>{{accounts.sortable('list.header.name'|trans, 'a.name')|raw}}</th>
+				<th>{{'list.header.url'|trans}}</th>
+				<th>{{'list.header.name'|trans}}</th>
+				<th>{{'list.header.password'|trans}}</th>
+				<th>{{'list.header.group'|trans}}</th>
 			</tr>
 		</thead>
 		<tbody id="j-accountsBody">

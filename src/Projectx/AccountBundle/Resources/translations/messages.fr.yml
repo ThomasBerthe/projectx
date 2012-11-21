@@ -1,0 +1,8 @@
+# Trad tableau de comptes
+list:
+  header:
+    name: Nom
+    url: Url
+    login: Login
+    password: Mot de passe
+    group: Groupe

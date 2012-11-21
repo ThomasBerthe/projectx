@@ -135,9 +135,9 @@
 				}});
 
 				// Edition d'un compte
-				/*this.route("editaccount/:id", "account", function(id){
+				this.route("#editaccount/:id", "account", function(id){
 					$('#j-edit' + id).click();
-				});*/
+				});
 			}
 		});
 
@@ -145,10 +145,10 @@
 		Backbone.emulateHTTP = true;
 
 		// Router Init
-		//var oRouter = new AccountRouter();
+		var oRouter = new AccountRouter();
 
 		// Monitoring activation and url dispatch
-		//Backbone.history.start()
+		Backbone.history.start()
 	});
 
 
